@@ -4,14 +4,15 @@ import sys
 import json
 import requests
 
+
 def main():
     # Need at least the URL
     if len(sys.argv) < 2:
-        print(f"Usage:\n  {sys.argv[0]} <host:port/path> [message]")
-        print(f"  echo 'message' | {sys.argv[0]} <host:port/path>")
+        print(f"Usage:\n  {sys.argv[0]} <host:port> [message]")
+        print(f"  echo 'message' | {sys.argv[0]} <host:port>")
         sys.exit(1)
 
-    url = f"http://{sys.argv[1]}"
+    url = f"http://{sys.argv[1]}/chat"
 
     # Determine where the message comes from
     if len(sys.argv) >= 3:
@@ -25,13 +26,9 @@ def main():
         print("No message provided.")
         sys.exit(1)
 
-    headers = {
-        "Content-Type": "application/json"
-    }
+    headers = {"Content-Type": "application/json"}
 
-    payload = {
-        "message": message
-    }
+    payload = {"message": message}
 
     try:
         response = requests.post(url, headers=headers, json=payload)
@@ -48,6 +45,7 @@ def main():
         print("Failed to decode JSON response.")
         print(response.text)
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
