@@ -1,8 +1,17 @@
 # Toolkit
 
+## `curl`
+
+### Upload file
+
+```bash
+curl -s -X POST http://192.168.1.20:8000/upload \
+  -F "file=@/tmp/document.txt"
+```
+
 ## Fuzzing
 
-### GET endpoints, show all responses except `404 Not Found`
+### GET endpoints, show all responses except 404
 
 ```bash
 ffuf -u http://192.168.1.20:8000/FUZZ \
