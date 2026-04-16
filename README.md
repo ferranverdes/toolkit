@@ -11,6 +11,18 @@ curl -s -X POST http://192.168.1.20:8000/upload \
 
 ## python
 
+### Create a virtual environment
+
+```bash
+python3.12 -m venv venv
+```
+
+#### Activate the virtual environment
+
+```bash
+source venv/bin/activate
+```
+
 ### Start a Python HTTP server serving a specific directory forever
 
 ```bash
