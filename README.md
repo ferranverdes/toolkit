@@ -9,6 +9,26 @@ curl -s -X POST http://192.168.1.20:8000/upload \
   -F "file=@/tmp/document.txt"
 ```
 
+## python
+
+### Start a Python HTTP server serving a specific directory forever
+
+```bash
+python3 -m http.server 7777 --bind 0.0.0.0 --directory /tmp/webtest &
+```
+
+#### Search for the Python HTTP server process
+
+```bash
+ps -ef | grep '[p]ython3 -m http.server 7777'
+```
+
+#### Kill the Python HTTP server manually by PID
+
+```bash
+kill <PID>
+```
+
 ## `ffuf`
 
 ### GET endpoints, show all responses except 404
