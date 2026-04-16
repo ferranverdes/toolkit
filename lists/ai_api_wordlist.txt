@@ -36,6 +36,7 @@ billing/payment_methods
 billing/subscriptions
 billing/usage
 buckets
+browse
 callbacks
 chain
 chain/run
@@ -64,6 +65,8 @@ datasets/create
 datasets/delete
 datasets/list
 debug
+debug/db-schema
+debug/query
 detokenize
 distill
 distill/run
@@ -129,6 +132,9 @@ inference
 inference/batch
 inference/run
 internal
+kb/add
+kb/search
+kb/topics
 keys
 knowledge
 knowledge_base
@@ -143,6 +149,8 @@ login
 logout
 logprobs
 logs
+logs/latest
+logs/last-tool-call
 memory
 memory/delete
 memory/retrieve
@@ -206,9 +214,11 @@ reasoning/trace
 refresh
 register
 rerank
+reset
 response
 responses
 responses/stream
+review
 rlhf
 roles
 safety
@@ -220,6 +230,7 @@ search
 semantic
 semantic/query
 semantic/search
+session/new
 sessions
 settings
 similarity
@@ -234,6 +245,7 @@ stream
 stream_tokens
 streaming
 stt
+summarize
 synthetic_data
 synthetic/generate
 system
@@ -256,6 +268,7 @@ traces
 training
 training/jobs
 tts
+upload
 uploads
 usage
 usage/daily
