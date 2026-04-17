@@ -34,9 +34,11 @@ def main():
         response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
 
+        print("---")
+
         # Pretty print JSON (like jq)
         parsed = response.json()
-        print(json.dumps(parsed, indent=4))
+        print(parsed["response"])
 
     except requests.exceptions.RequestException as e:
         print(f"Request error: {e}")
