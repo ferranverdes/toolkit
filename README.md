@@ -1,5 +1,13 @@
 # Toolkit
 
+## `nmap`
+
+### Scan ports 1-10000 with service/version detection, show only open ports
+
+```bash
+nmap -sV -p 1-10000 192.168.1.20
+```
+
 ## `curl`
 
 ### Upload file
@@ -62,6 +70,51 @@ ffuf -u http://192.168.1.20:8000/FUZZ \
   -d '{}' \
   -mc all \
   -fc 404,405
+```
+
+## `psql`
+
+### Connect to the PostgreSQL `postgres` database as `app_author`
+
+```bash
+psql -h 192.168.1.20 -U app_author -d postgres
+```
+
+### List all databases
+
+```bash
+postgres=> \l
+```
+
+### Connect to a specific database
+
+```bash
+postgres=> \c megacorp_internal
+```
+
+### List all tables in the current database/schema
+
+```bash
+megacorp_internal=> \dt
+            List of tables
+ Schema |   Name    | Type  |  Owner
+--------+-----------+-------+----------
+ public | api_keys  | table | postgres
+ public | employees | table | postgres
+(2 rows)
+```
+
+### Describe the structure of a table in the current database/schema
+
+```bash
+megacorp_internal=> \d employees
+                 Table "public.employees"
+ Column |  Type   | Nullable | Default
+--------+---------+----------+---------
+ id     | integer | not null |
+ name   | text    |          |
+ role   | text    |          |
+ email  | text    |          |
 ```
 
 ## `aws`
