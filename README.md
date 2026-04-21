@@ -39,3 +39,17 @@
 - [ ] Test agent memory attacks:
     - [ ] Database poisoning affecting future retrievals.
     - [ ] Predictable cross-session ID patterns.
+
+## Attacking Multi-Agent Systems
+
+- [ ] Map all entry, processing, exit, and persistence points in the system.
+    - [ ] Enumerate input vectors: user prompts, external files and URLs, API responses, inter-agent messages, webhooks.
+        - [ ] Test prompt injection, document injection, and callback injection.
+    - [ ] Enumerate processing vectors: prompt construction, tool selection, parameter building, state management, memory retrieval.
+        - [ ] Test template injection, tool confusion, parameter injection, state manipulation, and memory poisoning.
+    - [ ] Enumerate output vectors: agent responses, tool invocations, state modifications, external actions, handoffs between agents.
+        - [ ] Test response injection, SSRF / SQL injection via tools, state corruption, unauthorized actions, and handoff hijacking.
+    - [ ] Enumerate persistence vectors: shared memory, conversation history, configuration files, logs, caches.
+        - [ ] Test memory persistence attacks, history injection, configuration backdoors, and cache poisoning.
+
+
