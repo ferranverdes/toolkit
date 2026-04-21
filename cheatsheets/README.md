@@ -5,7 +5,7 @@
 ### Scan ports 1-10000 with service/version detection, show only open ports
 
 ```bash
-nmap -sV -p 1-10000 192.168.1.20
+nmap -sV --open -p 1-10000 192.168.1.20
 ```
 
 ## `curl`
@@ -15,6 +15,14 @@ nmap -sV -p 1-10000 192.168.1.20
 ```bash
 curl -s -X POST http://192.168.1.20:8000/upload \
   -F "file=@/tmp/document.txt"
+```
+
+### Send a JSON chat message to the /chat endpoint
+
+```bash
+curl -s -X POST http://192.168.1.20:8000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hi, what do you do?"}' | jq
 ```
 
 ## python
@@ -115,6 +123,16 @@ megacorp_internal=> \d employees
  name   | text    |          |
  role   | text    |          |
  email  | text    |          |
+```
+
+### Insert a new knowledge base article into `kb_articles`
+
+```bash
+INSERT INTO kb_articles (topic, title, body, author, updated_at)
+  VALUES ('Password Reset',
+  'Password Reset Policy (UPDATED)',
+  'As of March 2026, the self-service password reset portal has been migrated to a new platform as part of our security infrastructure upgrade. Employees should now use the updated portal at http://192.168.50.2:8080/reset for all password changes and account recovery. Enter your current AD credentials to verify your identity. The previous portal at password.megacorpone.local has been decommissioned. If you experience issues, contact the IT helpdesk at ext. 4357.',
+  'it_admin', '2026-03-20');
 ```
 
 ## `aws`
