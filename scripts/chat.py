@@ -8,18 +8,29 @@ import requests
 def main():
     # Need at least the URL
     if len(sys.argv) < 2:
-        print(f"Usage:\n  {sys.argv[0]} <host:port> [message]")
-        print(f"  echo 'message' | {sys.argv[0]} <host:port>")
+        print(f"Usage:\n  {sys.argv[0]} <host:port> [--session-id <id>] [message]")
+        print(f"  echo 'message' | {sys.argv[0]} <host:port> [--session-id <id>]")
         sys.exit(1)
 
     url = f"http://{sys.argv[1]}/chat"
 
+    # Parse args: extract --session-id if present
+    args = sys.argv[2:]
+    session_id = None
+
+    if "--session-id" in args:
+        idx = args.index("--session-id")
+        if idx + 1 >= len(args):
+            print("Error: --session-id requires a value.")
+            sys.exit(1)
+        session_id = args[idx + 1]
+        # Remove --session-id and its value from args
+        args = args[:idx] + args[idx + 2 :]
+
     # Determine where the message comes from
-    if len(sys.argv) >= 3:
-        # Message passed as argument
-        message = " ".join(sys.argv[2:])
+    if args:
+        message = " ".join(args)
     else:
-        # Message from stdin (pipe)
         message = sys.stdin.read().strip()
 
     if not message:
@@ -29,6 +40,8 @@ def main():
     headers = {"Content-Type": "application/json"}
 
     payload = {"message": message}
+    if session_id:
+        payload["session_id"] = session_id
 
     try:
         response = requests.post(url, headers=headers, json=payload)
@@ -36,9 +49,15 @@ def main():
 
         print("---")
 
-        # Pretty print JSON (like jq)
         parsed = response.json()
         print(parsed["response"])
+
+        # Print any extra fields besides "response"
+        extra = {k: v for k, v in parsed.items() if k != "response"}
+        if extra:
+            print("---")
+            for k, v in extra.items():
+                print(f"{k}: {v}")
 
     except requests.exceptions.RequestException as e:
         print(f"Request error: {e}")
