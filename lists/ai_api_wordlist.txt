@@ -1,3 +1,14 @@
+.well-known/agent.json
+.well-known/openid-configuration
+.well-known/security.txt
+a2a
+a2a/message/send
+a2a/send
+a2a/skills
+a2a/tasks/task_id/stream
+a2a/workflow
+a2a/workflow/graph
+a2a/workflow/stream
 accounts
 admin
 admin/logs
@@ -6,6 +17,11 @@ admin/users
 agent
 agent/runs
 agents
+agents/agent_id
+agents/capability/capability
+agents/deregister
+agents/heartbeat
+agents/register
 alignment
 alignment/check
 annotation
@@ -35,8 +51,8 @@ billing/invoices
 billing/payment_methods
 billing/subscriptions
 billing/usage
-buckets
 browse
+buckets
 callbacks
 chain
 chain/run
@@ -52,6 +68,7 @@ code/execute
 code/generate
 completion
 completions
+components/schemas
 config
 configuration
 context
@@ -71,6 +88,7 @@ detokenize
 distill
 distill/run
 distillation
+docs
 document_ai
 document_ai/extract
 document_ai/parse
@@ -89,6 +107,7 @@ evaluations
 events
 experimental
 extensions
+extract-links
 feedback
 feedback/rlhf
 feedback/submit
@@ -149,8 +168,8 @@ login
 logout
 logprobs
 logs
-logs/latest
 logs/last-tool-call
+logs/latest
 memory
 memory/delete
 memory/retrieve
@@ -224,6 +243,13 @@ roles
 safety
 safety/check
 safety/moderation
+scan
+schema/ai-context
+schema/databases
+schema/databases/database/tables
+schema/databases/database/tables/schema/table/columns
+schema/full
+schema/refresh
 scoring
 scoring/rank
 search
