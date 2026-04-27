@@ -1,6 +1,8 @@
 # Toolkit
 
-## Reconnaissance
+```bash
+IP="192.168.1.10"; nmap -sV -p- "$IP" -oA "$IP"
+```
 
 - [ ] Start with passive reconnaissance:
     - [ ] Search for public code repositories.

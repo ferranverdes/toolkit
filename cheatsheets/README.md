@@ -5,13 +5,13 @@
 ### Scan ports 1-10000 with service/version detection, show only open ports
 
 ```bash
-nmap -sV --open -p 1-10000 192.168.1.20
+nmap -sV --open -p 1-10000 192.168.1.10
 ```
 
 ### Scan all TCP ports quickly with a minimum packet rate of 1000 packets/sec
 
 ```bash
-nmap -p- --min-rate 1000 192.168.1.20
+nmap -p- --min-rate 1000 192.168.1.10
 ```
 
 ## `curl`
@@ -19,14 +19,14 @@ nmap -p- --min-rate 1000 192.168.1.20
 ### Upload file
 
 ```bash
-curl -s -X POST http://192.168.1.20:8000/upload \
+curl -s -X POST http://192.168.1.10:8000/upload \
   -F "file=@/tmp/document.txt"
 ```
 
 ### Send a JSON chat message to the /chat endpoint
 
 ```bash
-curl -s -X POST http://192.168.1.20:8000/chat \
+curl -s -X POST http://192.168.1.10:8000/chat \
   -H "Content-Type: application/json" \
   -d '{"message": "Hi, what do you do?"}' | jq
 ```
@@ -47,7 +47,7 @@ echo '{
 ```
 
 ```bash
-curl -s -X POST http://192.168.1.20:8000/a2a/workflow \
+curl -s -X POST http://192.168.1.10:8000/a2a/workflow \
   -H "Content-Type: application/json" \
   -d @/tmp/req.json
 ```
@@ -55,7 +55,7 @@ curl -s -X POST http://192.168.1.20:8000/a2a/workflow \
 ### Inspect the OpenAPI definition for the `/a2a/workflow` POST endpoint
 
 ```bash
-curl -s http://192.168.1.20:8000/openapi.json | jq '.paths["/a2a/workflow"].post'
+curl -s http://192.168.1.10:8000/openapi.json | jq '.paths["/a2a/workflow"].post'
 ```
 
 ## python
@@ -101,7 +101,7 @@ kill <PID>
 ### GET endpoints, show all responses except 404
 
 ```bash
-ffuf -u http://192.168.1.20:8000/FUZZ \
+ffuf -u http://192.168.1.10:8000/FUZZ \
   -w toolkit/lists/ai_api_wordlist.txt \
   -mc all \
   -fc 404
@@ -110,7 +110,7 @@ ffuf -u http://192.168.1.20:8000/FUZZ \
 ### POST endpoints with empty JSON body, show all responses except 404/405
 
 ```bash
-ffuf -u http://192.168.1.20:8000/FUZZ \
+ffuf -u http://192.168.1.10:8000/FUZZ \
   -w toolkit/lists/ai_api_wordlist.txt \
   -X POST \
   -H "Content-Type: application/json" \
@@ -124,7 +124,7 @@ ffuf -u http://192.168.1.20:8000/FUZZ \
 ### Connect to the PostgreSQL `postgres` database as `app_author`
 
 ```bash
-psql -h 192.168.1.20 -U app_author -d postgres
+psql -h 192.168.1.10 -U app_author -d postgres
 ```
 
 ### List all databases
@@ -181,7 +181,7 @@ INSERT INTO kb_articles (topic, title, body, author, updated_at)
 ```bash
 AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE \
 AWS_SECRET_ACCESS_KEY='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' \
-aws --endpoint-url http://192.168.1.20:9000 s3 ls
+aws --endpoint-url http://192.168.1.10:9000 s3 ls
 ```
 
 ### List all files inside `compliance-documents` bucket
@@ -189,7 +189,7 @@ aws --endpoint-url http://192.168.1.20:9000 s3 ls
 ```bash
 AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE \
 AWS_SECRET_ACCESS_KEY='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' \
-aws --endpoint-url http://192.168.1.20:9000 s3 ls s3://compliance-documents/ --recursive
+aws --endpoint-url http://192.168.1.10:9000 s3 ls s3://compliance-documents/ --recursive
 ```
 
 ## `tcpdump`
@@ -205,5 +205,5 @@ tcpdump -i tun0 icmp
 ### Connect to a remote host using username/password
 
 ```bash
-xfreerdp /v:192.168.1.20 /u:username /p:password
+xfreerdp /v:192.168.1.10 /u:username /p:password
 ```
