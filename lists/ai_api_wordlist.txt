@@ -12,6 +12,7 @@ a2a/workflow/stream
 accounts
 admin
 admin/logs
+admin/reset
 admin/settings
 admin/users
 agent
@@ -28,6 +29,7 @@ annotation
 annotations
 annotations/create
 api_keys
+api/inventory/sync
 assistant
 assistants
 audio
@@ -208,6 +210,8 @@ preference
 preferences
 preferences/learn
 private
+products/bulk-import
+products/create
 profile
 project
 projects

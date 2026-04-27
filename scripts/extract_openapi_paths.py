@@ -4,10 +4,13 @@ import json
 import sys
 
 
-def extract_paths(filename):
+def extract_paths(data_source):
     try:
-        with open(filename, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        if isinstance(data_source, str):
+            with open(data_source, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        else:
+            data = json.load(data_source)
 
         paths = data.get("paths", {})
 
@@ -19,7 +22,7 @@ def extract_paths(filename):
             print(path)
 
     except FileNotFoundError:
-        print(f"Error: File not found: {filename}")
+        print(f"Error: File not found: {data_source}")
         sys.exit(1)
 
     except json.JSONDecodeError as e:
@@ -28,11 +31,14 @@ def extract_paths(filename):
 
 
 def main():
-    if len(sys.argv) != 2:
+    if len(sys.argv) == 1 and not sys.stdin.isatty():
+        extract_paths(sys.stdin)
+    elif len(sys.argv) == 2:
+        extract_paths(sys.argv[1])
+    else:
         print(f"Usage: {sys.argv[0]} openapi.json")
+        print(f"       curl -s http://host/openapi.json | {sys.argv[0]}")
         sys.exit(1)
-
-    extract_paths(sys.argv[1])
 
 
 if __name__ == "__main__":
