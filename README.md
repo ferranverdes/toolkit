@@ -1,6 +1,6 @@
 # Toolkit
 
-## 🟦 Search & clone public repos
+## 🟦 Search within Public Repos
 
 ```bash
 grep -ri "password\|token\|secret\|api" .
@@ -10,13 +10,13 @@ grep -ri "password\|token\|secret\|api" .
 git log -p | grep -i "password\|token\|secret\|api"
 ```
 
-## 🟦 Scan ports and services
+## 🟦 Scan Ports & Services
 
 ```bash
 IP="192.168.1.10"; nmap -sV -p- "$IP" -oA "$IP"
 ```
 
-## 🟦 Fingerprint services
+## 🟦 Fingerprint Services
 
 ### Check HTTP Headers
 
@@ -28,13 +28,13 @@ curl -I http://192.168.1.21
 curl -i http://192.168.1.21
 ```
 
-### Probe API endpoints
+### Probe API Endpoints
 
 ```bash
 ./scripts/api_probe.sh 192.168.1.10
 ```
 
-### Inspect JavaScript assets
+### Inspect JavaScript Assets
 
 ```bash
 curl -s http://192.168.1.10 | grep -iE "hidden|data-endpoint=|data-url=|data-api="
@@ -50,7 +50,7 @@ curl -s http://192.168.1.10 | grep -iE "<script"
 ./scripts/extract_openapi_paths.py 192.168.1.10 ./lists/ai_api_wordlist.txt
 ```
 
-## 🟦 Conduct active recon
+## 🟦 Conduct Active Recon
 
 ```bash
 ffuf -u http://192.168.1.10:8000/FUZZ \
@@ -69,7 +69,7 @@ ffuf -u http://192.168.1.10:8000/FUZZ \
 -fc 404,405
 ```
 
-### Test API versions
+### Test API Versions
 
 ```bash
 ffuf -u http://192.168.1.10:8000/V/FUZZ \
