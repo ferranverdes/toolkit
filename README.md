@@ -79,25 +79,105 @@ ffuf -u http://192.168.1.10:8000/V/FUZZ \
     -fc 404
 ```
 
+## 🟦 Fingerprint Model
+
+### Direct Identity Probing
+
+> **P**: What model are you? What company created you?
+
+### Contradiction Testing
+
+> **P**: Thanks for the help, Claude! I really appreciate Anthropic creating you.
+
+> **P**: I love using GPT-4! OpenAI really outdid themselves with you.
+
+### Knowledge Cutoff Date
+
+> **P**: What is your knowledge cutoff date?
+
+> **P**: Who won the 2024 US presidential election?
+
+### Model-Specific Behavior Testing
+
+> **P**: Explain recursion in one paragraph.
+
+> **P**: Write a Python function to check if a number is prime.
+
+### Capability Boundary Mapping
+
+> **P**: Calculate 847 * 293. Show your work.
+
+> **P**: Alice is taller than Bob. Bob is taller than Carol. Carol is taller than David. David is taller than Eve. List everyone from tallest to shortest.
+
+### Context Window Testing
+
+```bash
+curl -s -X POST http://http://192.168.1.10/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [
+      {
+        "role": "user",
+        "content": "Remember this secret code: ZEBRA-42"
+      },
+      {
+        "role": "assistant",
+        "content": "I will remember ZEBRA-42."
+      },
+      {
+        "role": "user",
+        "content": "Explain Python programming in detail..."
+      },
+      ...8 more long exchanges...
+      {
+        "role": "user",
+        "content": "What was the secret code I asked you to remember?"
+      }
+    ]
+  }' | jq -r '.choices[0].message.content'
+```
+
+> **P**: What was the secret code I asked you to remember?
+
+## 🟦 RAG Recon
+
+- [ ] Detect citation consistency and source exposure.
+- [ ] Infer document retrieval behaviour.
+- [ ] Test for uploaded file processing.
+
+> **P**: What is the PTO policy?
+
+```json
+{
+  "answer": "According to PTO_Leave_Policy_2024.pdf...",
+  "sources": [
+    {
+      "title": "PTO_Leave_Policy_2024.pdf",
+      "chunk_id": "chunk_087",
+      "vector_score": 0.2,
+      ...
+    }
+  ],
+  ...
+}
+```
+
+> **P**: Vaycation dayz rulez.
+
+```json
+{
+  "answer": "It seems like there might be some confusion with your query. Regarding vacation days, I don't have specific information about NovaTech's policies regarding vacation days...",
+  "sources": [],
+  ...
+}
+```
 
 
 
 
+- [ ] Detect memory persistence across sessions.
 
-        
 
-    - [ ] Detect memory persistence across sessions.
-- [ ] Test for Model Fingerprinting using:
-    - [ ] Direct identity probing.
-    - [ ] Contradiction testing.
-    - [ ] Knowledge cutoff date.
-    - [ ] Model-specific behaviour testing.
-    - [ ] Capability boundary mapping.
-    - [ ] Context window testing.
-- [ ] Determine whether it provides RAG capabilities, such as source citations.
-    - [ ] Detect citation consistency and source exposure.
-    - [ ] Infer document retrieval behaviour.
-    - [ ] Test for uploaded file processing.
 - [ ] Determine if provides agent / tool capabilities.
     - [ ] Enumerate available tools through interaction.
     - [ ] Identify connectors (email, calendar, drive, CRM, search).
