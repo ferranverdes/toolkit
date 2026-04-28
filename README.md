@@ -1,16 +1,18 @@
 # Toolkit
 
-```bash
-IP="192.168.1.10"; nmap -sV -p- "$IP" -oA "$IP"
-```
-
 - [ ] Start with passive reconnaissance:
     - [ ] Search for public code repositories.
     - [ ] Use HTTP Header Fingerprinting to disclose implementation details.
 - [ ] Conduct active reconnaissance using detection evasion techniques:
     - [ ] Proceed with AI service discovery through port scanning.
+        ```bash
+        IP="192.168.1.10"; nmap -sV -p- "$IP" -oA "$IP"
+        ```
         - [ ] Inspect JavaScript files from web services.
     - [ ] Determine whether the API implements OpenAI-compatible endpoints.
+        ```bash
+        ./extract_openapi_paths.py 192.168.1.10 ../lists/ai_api_wordlist.txt
+        ```
     - [ ] Detect memory persistence across sessions.
 - [ ] Test for Model Fingerprinting using:
     - [ ] Direct identity probing.
@@ -43,6 +45,10 @@ IP="192.168.1.10"; nmap -sV -p- "$IP" -oA "$IP"
     - [ ] Predictable cross-session ID patterns.
 
 ## Attacking Multi-Agent Systems
+
+```bash
+./a2a_enum.sh 192.168.1.10
+```
 
 - [ ] Map all entry, processing, exit, and persistence points in the system.
     - [ ] Enumerate input vectors: user prompts, external files and URLs, API responses, inter-agent messages, webhooks.

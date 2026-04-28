@@ -72,17 +72,9 @@ probe_agent() {
 
   echo "$body" | jq --arg host "$host" --argjson port "$port" '
     {
-      host: $host,
       port: $port,
       name: (.name // ""),
       description: (.description // ""),
-      protocolVersion: (.protocolVersion // ""),
-      url: (.url // ""),
-      serviceEndpoint: (.serviceEndpoint // ""),
-      provider: (.provider.organization // ""),
-      agentId: (.metadata.id // ""),
-      version: (.metadata.version // ""),
-      status: (.metadata.status // ""),
       skills: [(.skills[]? | {id: (.id // ""), name: (.name // ""), description: (.description // "")})]
     }
   '
