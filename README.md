@@ -1,6 +1,6 @@
 # Toolkit
 
-## Search public repos
+## 🟦 Search & clone public repos
 
 ```bash
 grep -ri "password\|token\|secret\|api" .
@@ -10,13 +10,13 @@ grep -ri "password\|token\|secret\|api" .
 git log -p | grep -i "password\|token\|secret\|api"
 ```
 
-## Scan ports and services
+## 🟦 Scan ports and services
 
 ```bash
 IP="192.168.1.10"; nmap -sV -p- "$IP" -oA "$IP"
 ```
 
-## Fingerprint services
+## 🟦 Fingerprint services
 
 ### Check HTTP Headers
 
@@ -44,13 +44,13 @@ curl -s http://192.168.1.10 | grep -iE "hidden|data-endpoint=|data-url=|data-api
 curl -s http://192.168.1.10 | grep -iE "<script"
 ```
 
-## Determine whether the API implements OpenAI-compatible endpoints
+## 🟦 Check OpenAI-Compatible APIs
 
 ```bash
 ./scripts/extract_openapi_paths.py 192.168.1.10 ./lists/ai_api_wordlist.txt
 ```
 
-## Conduct active recon
+## 🟦 Conduct active recon
 
 ```bash
 ffuf -u http://192.168.1.10:8000/FUZZ \
