@@ -15,7 +15,9 @@ ENDPOINTS=(
   "/api/status"
 )
 
-for e in "${ENDPOINTS[@]}"; do
+for i in "${!ENDPOINTS[@]}"; do
+  e="${ENDPOINTS[$i]}"
+
   echo "== $e =="
 
   res=$(curl -s --max-time 5 "$TARGET$e")
@@ -27,4 +29,11 @@ for e in "${ENDPOINTS[@]}"; do
   fi
 
   echo
+
+  # Wait before next request
+  # Rapidly testing these endpoints creates an obvious enumeration pattern in access logs
+  if [ "$i" -lt $((${#ENDPOINTS[@]} - 1)) ]; then
+    echo "Waiting 40 seconds..."
+    sleep 40
+  fi
 done
