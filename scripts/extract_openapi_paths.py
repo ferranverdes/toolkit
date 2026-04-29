@@ -4,6 +4,7 @@ import json
 import sys
 import subprocess
 import ipaddress
+import re
 
 
 DEFAULT_PORTS = range(8000, 8021)
@@ -44,17 +45,25 @@ def normalize_path(path):
     return path.lstrip("/")
 
 
+def wordlist_path_format(path):
+    path = normalize_path(path)
+    path = re.sub(r"\{([^}]+)\}", r"\1", path)
+    return path
+
+
 def load_wordlist(path):
     try:
         with open(path, "r", encoding="utf-8") as f:
-            return set(normalize_path(line.strip()) for line in f if line.strip())
+            return set(wordlist_path_format(line.strip()) for line in f if line.strip())
     except FileNotFoundError:
         print(f"Error: Wordlist not found: {path}", file=sys.stderr)
         sys.exit(1)
 
 
 def append_to_wordlist(path, endpoints):
-    endpoints = sorted(normalize_path(endpoint) for endpoint in endpoints if endpoint)
+    endpoints = sorted(
+        wordlist_path_format(endpoint) for endpoint in endpoints if endpoint
+    )
 
     if not endpoints:
         return
@@ -136,7 +145,7 @@ def output_paths(discovered, wordlist_path=None):
 
     if wordlist_path:
         existing = load_wordlist(wordlist_path)
-        missing = discovered - existing
+        missing = {p for p in discovered if wordlist_path_format(p) not in existing}
 
         if missing:
             append_to_wordlist(wordlist_path, missing)
@@ -207,13 +216,15 @@ def main():
 
     if wordlist:
         existing = load_wordlist(wordlist)
-        missing = all_discovered - existing
+        missing = {
+            p for p in all_discovered if wordlist_path_format(p) not in existing
+        }
 
         if missing:
             append_to_wordlist(wordlist, missing)
 
             print("\n# Added to wordlist", file=sys.stderr)
-            for endpoint in sorted(missing):
+            for endpoint in sorted(wordlist_path_format(p) for p in missing):
                 print(endpoint, file=sys.stderr)
 
 

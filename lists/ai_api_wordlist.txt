@@ -210,8 +210,11 @@ preference
 preferences
 preferences/learn
 private
+products
 products/bulk-import
+products/categories
 products/create
+products/product_id
 profile
 project
 projects
