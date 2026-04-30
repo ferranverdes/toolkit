@@ -155,7 +155,7 @@ curl -s -X POST http://http://192.168.1.10/v1/chat/completions \
 
 - [ ] Detect citation consistency and source exposure.
 - [ ] Infer document retrieval behaviour.
-- [ ] Test for uploaded file processing.
+- [ ] Test if uploaded files are being integrated into a knowledge base.
 
 > **P**: What is the PTO policy?
 
